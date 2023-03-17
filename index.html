@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+    <style>
+
+
+        .principal {
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            width: 800px;
+            height: 800px;
+            background: red;
+        }
+
+        .quadrado {
+            width: 350px;
+            height: 350px;
+            background: blue;
+        }
+
+        .secundaria {
+            width: 350px;
+            height: 350px;
+            background: yellow;
+        }
+
+        .arrasta {
+            width: 100%;
+            padding: 2em 0em;
+            text-align: center;
+            background: green;
+
+        }
+
+    </style>
+
+<body>
+    
+    <div class="principal">
+
+        <div 
+            class="quadrado"
+        >
+            <p id="text2" class="arrasta" draggable="true">ME ARRASTE 1</p>
+            <p id="text1" class="arrasta" draggable="true">ME ARRASTE 2</p>
+        </div>
+
+        <div 
+            class="quadrado secundaria"
+            dropzone="copy"
+        >
+        </div>
+
+
+    </div>
+
+
+    <script>
+        
+        const arrasta = document.querySelectorAll('.arrasta')
+        const quadrado = document.querySelectorAll('.quadrado')
+
+        arrasta.forEach(element => {
+            element.addEventListener('dragstart', e => {
+                e.dataTransfer.setData('Text', e.target.id)
+                console.log(e.target.id)
+            })
+        });
+
+    
+        quadrado.forEach(element => {
+
+            element.addEventListener("dragover", e =>{
+                e.preventDefault()
+            })
+
+            element.addEventListener('drop', e => {
+                const idDoElemento = e.dataTransfer.getData('Text')
+                const elemento = document.getElementById(idDoElemento)
+                element.appendChild(elemento)
+            })
+
+        })
+        
+
+    </script>
+
+</body>
+</html>
